@@ -3,6 +3,7 @@ package com.thiago.fitness.data.repository
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.storage.StorageReference
 import com.thiago.fitness.core.Constants.TRAINING
 import com.thiago.fitness.core.Constants.USERS
@@ -168,5 +169,7 @@ class TrainingRepositoryImpl @Inject constructor(
         }
 
     }
+
+
 
 }

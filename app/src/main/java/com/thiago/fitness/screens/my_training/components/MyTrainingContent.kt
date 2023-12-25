@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.thiago.fitness.domain.model.Exercise
 import com.thiago.fitness.domain.model.Training
 
 @Composable

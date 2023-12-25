@@ -2,10 +2,11 @@ package com.thiago.fitness.presentation.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.thiago.fitness.domain.model.Exercise
-import com.thiago.fitness.screens.new_training.NewTrainingScreen
+import com.thiago.fitness.screens.new_exercise.NewExerciseScreen
 import com.thiago.fitness.screens.detail_training.DetailTrainingScreen
 import com.thiago.fitness.screens.my_exercise.MyExerciseScreen
+import com.thiago.fitness.screens.new_training.NewTrainingScreen
+import com.thiago.fitness.screens.new_training.components.NewTraining
 import com.thiago.fitness.screens.profile_update.ProfileUpdateScreen
 import com.thiago.fitness.screens.update_training.UpdateTrainingScreen
 
@@ -20,9 +21,9 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
             NewTrainingScreen(navController = navController)
         }
 
-//        composable(route = DetailsScreen.NewExercise.route) {
-//            NewExerciseScreen(navController = navController)
-//        }
+        composable(route = DetailsScreen.NewExercise.route) {
+            NewExerciseScreen(navController = navController)
+        }
 
 //        composable(route = DetailsScreen.NewExercise.route) {
 //            MyExerciseScreen(navController = navController)

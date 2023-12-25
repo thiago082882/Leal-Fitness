@@ -20,13 +20,14 @@ import coil.compose.AsyncImage
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.presentation.navigation.DetailsScreen
 import com.thiago.fitness.screens.my_exercise.MyExerciseViewModel
+import com.thiago.fitness.screens.my_training.MyTrainingViewModel
 
 
 @Composable
 fun MyTrainingCard(
     navController: NavHostController,
     training: Training,
-    viewModel: MyExerciseViewModel = hiltViewModel()
+    viewModel: MyTrainingViewModel = hiltViewModel()
 ) {
 
 
@@ -34,7 +35,7 @@ fun MyTrainingCard(
         modifier = Modifier
             .padding(top = 0.dp, bottom = 15.dp)
             .clickable {
-                navController.navigate(route = DetailsScreen.ExerciseList.passExercise(training.exercise.toString()))
+                navController.navigate(route = DetailsScreen.ExerciseList.passExercise(training.toJson()))
             },
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),

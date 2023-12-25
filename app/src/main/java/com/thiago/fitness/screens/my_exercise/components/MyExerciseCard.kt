@@ -34,7 +34,8 @@ fun MyExerciseCard(
         modifier = Modifier
             .padding(top = 0.dp, bottom = 15.dp)
             .clickable {
-            // navController.navigate(route = DetailsScreen.ExerciseList.passExercise(trainingId = exercise.trainingId.toString()))
+
+               // navController.navigate(route = DetailsScreen.ExerciseList.passExercise(trainingId = exercise.toJson()))
             },
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),
@@ -62,6 +63,27 @@ fun MyExerciseCard(
                 maxLines = 2,
                 color = Color.Gray
             )
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween
+//            ) {
+//                IconButton(
+//                    onClick = {
+//                        navController.navigate(
+//                            route = DetailsScreen.UpdateTraining.passTraining(
+//                                exercise.trainingId
+//                            )
+//                        )
+//                    }
+//                ) {
+//                    Icon(
+//                        modifier = Modifier.size(25.dp),
+//                        imageVector = Icons.Default.Edit,
+//                        contentDescription = "",
+//                        tint = Color.White
+//                    )
+//                }
+//            }
         }
     }
 

@@ -24,7 +24,7 @@ class MyTrainingViewModel @Inject constructor(
     val currentUser = authUseCases.getCurrentUser()
 
     init {
-        getPosts()
+      getPosts()
     }
 
     fun delete(idTraining: String) = viewModelScope.launch {

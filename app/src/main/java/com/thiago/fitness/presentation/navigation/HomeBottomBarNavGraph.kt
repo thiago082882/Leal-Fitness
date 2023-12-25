@@ -31,6 +31,8 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
             MyTrainingScreen(navController)
         }
 
+
+
         composable(route = HomeBottomBarScreen.Profile.route) {
             ProfileScreen(navController)
         }

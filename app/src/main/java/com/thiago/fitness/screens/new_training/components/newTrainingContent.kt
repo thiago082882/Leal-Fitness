@@ -1,6 +1,16 @@
 package com.thiago.fitness.screens.new_training.components
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -23,9 +33,9 @@ import coil.compose.AsyncImage
 import com.thiago.fitness.R
 import com.thiago.fitness.presentation.components.DefaultTextField
 import com.thiago.fitness.presentation.components.DialogCapturePicture
-import com.thiago.fitness.screens.new_training.NewTrainingViewModel
 import com.thiago.fitness.presentation.ui.theme.AllFitnessTheme
 import com.thiago.fitness.presentation.ui.theme.Blue200
+import com.thiago.fitness.screens.new_training.NewTrainingViewModel
 
 
 @Composable
@@ -76,8 +86,7 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                             contentDescription = "Selected image",
                             contentScale = ContentScale.Crop
                         )
-                    }
-                    else {
+                    } else {
                         Image(
                             modifier = Modifier
                                 .height(120.dp)
@@ -137,7 +146,7 @@ fun DefaultNewPostContent() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            NewTrainingContent()
+            com.thiago.fitness.screens.new_exercise.components.NewExerciseContent()
         }
     }
 }

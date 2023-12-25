@@ -8,7 +8,7 @@ import com.thiago.fitness.domain.repository.ExerciseRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetExercisesByUserIdUseCase(private val exerciseRepository: ExerciseRepository) {
-    suspend fun invoke(idUser: String): Flow<Response<List<Exercise>>> {
-        return exerciseRepository.getExercisesByUserId(idUser)
+    operator fun invoke(idUser: String): Flow<Response<List<Exercise>>> {
+        return exerciseRepository.getExercisesByTrainingId(idUser)
     }
 }

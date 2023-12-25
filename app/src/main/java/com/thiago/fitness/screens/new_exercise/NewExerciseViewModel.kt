@@ -1,4 +1,4 @@
-package com.thiago.fitness.screens.new_training
+package com.thiago.fitness.screens.new_exercise
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -6,13 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thiago.fitness.domain.model.Exercise
 import com.thiago.fitness.domain.model.Response
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
+import com.thiago.fitness.domain.use_cases.exercise.ExerciseUseCases
 import com.thiago.fitness.domain.use_cases.training.TrainingUseCases
 import com.thiago.fitness.presentation.utils.ComposeFileProvider
 import com.thiago.fitness.presentation.utils.ResultingActivityHandler
-import com.thiago.fitness.screens.new_exercise.NewExerciseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -20,13 +21,13 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class NewTrainingViewModel @Inject constructor(
+class NewExerciseViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val trainingUseCase: TrainingUseCases,
+    private val exerciseUseCase: ExerciseUseCases,
     private val authUseCases: AuthUseCases,
 ) : ViewModel() {
 
-    var state by mutableStateOf(NewTrainingState())
+    var state by mutableStateOf(NewExerciseState())
 
     // FILE
     var file: File? = null
@@ -40,21 +41,19 @@ class NewTrainingViewModel @Inject constructor(
     val currentUser = authUseCases.getCurrentUser()
 
 
-    fun createPost(training: Training) = viewModelScope.launch {
+    fun createPost(exercise: Exercise) = viewModelScope.launch {
         createPostResponse = Response.Loading
-        val result = trainingUseCase.createTraining(training, file!!)
+        val result = exerciseUseCase.createExercise(exercise, file!!)
         createPostResponse = result
     }
 
     fun onNewTraining() {
-        val training = Training(
+        val exercise = Exercise(
             name = state.name,
-            description = state.description,
-            category = state.category,
-            data = state.data,
-            idUser = currentUser?.uid ?: ""
+            remarks = state.remarks,
+            trainingId = currentUser?.uid ?: ""
         )
-        createPost(training)
+        createPost(exercise )
     }
 
     fun pickImage() = viewModelScope.launch {
@@ -76,8 +75,7 @@ class NewTrainingViewModel @Inject constructor(
     fun clearForm() {
         state = state.copy(
             name = "",
-            category = "",
-            description = "",
+            remarks = "",
             image = ""
         )
         createPostResponse = null
@@ -87,12 +85,9 @@ class NewTrainingViewModel @Inject constructor(
         state = state.copy(name = name)
     }
 
-    fun onCategoryInput(category: String) {
-        state = state.copy(category = category)
-    }
 
     fun onDescriptionInput(description: String) {
-        state = state.copy(description = description)
+        state = state.copy(remarks = description)
     }
 
     fun onImageInput(image: String) {

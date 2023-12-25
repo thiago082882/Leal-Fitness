@@ -35,7 +35,7 @@ class MyExerciseViewModel @Inject constructor(
 
     fun getPosts() = viewModelScope.launch {
         exerciseResponse = Response.Loading
-        exerciseUseCases.getExerciseByIdUser(currentUser?.uid ?: "").collect() { response ->
+        exerciseUseCases.getExercisesByTrainingUseCases(currentUser?.uid ?: "").collect() { response ->
             exerciseResponse = response
         }
     }

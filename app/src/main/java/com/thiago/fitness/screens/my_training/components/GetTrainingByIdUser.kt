@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.thiago.fitness.domain.model.Exercise
 import com.thiago.fitness.domain.model.Response
 import com.thiago.fitness.presentation.components.ProgressBar
 import com.thiago.fitness.screens.my_training.MyTrainingViewModel
@@ -23,7 +24,7 @@ fun GetTrainingsByIdUser(
 
         is Response.Success -> {
 
-            com.thiago.fitness.screens.my_training.components.MyTrainingContent(
+           MyTrainingContent(
                 navController = navController,
                 trainings = response.data
 

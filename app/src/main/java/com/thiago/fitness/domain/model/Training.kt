@@ -20,7 +20,7 @@ data class Training(
     var image: String = "",
     var idUser: String = "",
     var user: User? = null,
-    val exercise: List<Exercise> = listOf()
+
 ){
     fun toJson(): String = Gson().toJson(Training(
         id,
@@ -39,7 +39,7 @@ data class Training(
                 URLEncoder.encode(user?.image, StandardCharsets.UTF_8.toString())
             else "",
         ),
-        exercise
+
     ))
 
     companion object {
