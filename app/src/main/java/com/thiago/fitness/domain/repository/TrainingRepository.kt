@@ -10,6 +10,7 @@ interface TrainingRepository {
 
     fun getTraining(): Flow<Response<List<Training>>>
     fun getTrainingByUserId(idUser: String): Flow<Response<List<Training>>>
+
     suspend fun create(training: Training, file: File): Response<Boolean>
     suspend fun update(training: Training,file: File?): Response<Boolean>
     suspend fun delete(idTraining: String): Response<Boolean>
