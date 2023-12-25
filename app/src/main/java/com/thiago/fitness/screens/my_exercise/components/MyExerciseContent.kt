@@ -1,6 +1,5 @@
 package com.thiago.fitness.screens.my_exercise.components
 
-import MyExerciseCard
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn

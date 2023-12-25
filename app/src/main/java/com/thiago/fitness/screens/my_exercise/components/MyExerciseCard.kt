@@ -1,4 +1,4 @@
-
+package com.thiago.fitness.screens.my_exercise.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,21 +28,20 @@ fun MyExerciseCard(
     exercise: Exercise,
     viewModel: MyExerciseViewModel = hiltViewModel()
 ) {
-
-
     Card(
         modifier = Modifier
-            .padding(top = 0.dp, bottom = 15.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .clickable {
-
-               // navController.navigate(route = DetailsScreen.ExerciseList.passExercise(trainingId = exercise.toJson()))
+                // navController.navigate(route = DetailsScreen.ExerciseList.passExercise(trainingId = exercise.toJson()))
             },
         elevation = 4.dp,
-        shape = RoundedCornerShape(20.dp),
-        contentColor = Color.White,
-
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp)
         ) {
-        Column() {
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -51,40 +50,47 @@ fun MyExerciseCard(
                 contentDescription = "",
                 contentScale = ContentScale.Crop
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
-                text = exercise.name,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
-                text = exercise.remarks,
-                fontSize = 13.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                IconButton(
-//                    onClick = {
-//                        navController.navigate(
-//                            route = DetailsScreen.UpdateTraining.passTraining(
-//                                exercise.trainingId
-//                            )
-//                        )
-//                    }
-//                ) {
-//                    Icon(
-//                        modifier = Modifier.size(25.dp),
-//                        imageVector = Icons.Default.Edit,
-//                        contentDescription = "",
-//                        tint = Color.White
-//                    )
-//                }
-//            }
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = exercise.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = exercise.remarks,
+                    fontSize = 14.sp,
+                    maxLines = 2,
+                    color = Color.Gray
+                )
+            }
+            /*
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                IconButton(
+                    onClick = {
+                        navController.navigate(
+                            route = DetailsScreen.UpdateTraining.passTraining(
+                                exercise.trainingId
+                            )
+                        )
+                    }
+                ) {
+                    Icon(
+                        modifier = Modifier.size(25.dp),
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
+            }
+            */
         }
     }
-
 }
