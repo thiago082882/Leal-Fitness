@@ -31,6 +31,7 @@
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/eba0cc1f-5948-4f7f-93c0-31c56e318546" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/ce69c921-d135-48b8-a58a-adbc37e491d9" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/f79b608c-650a-4d18-9b2d-bc867eb62a55" width="200">
+<img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/a9ed8362-c9c6-4137-a1c5-1dbd59447e77" width="800">
 </div>
 
 ---
