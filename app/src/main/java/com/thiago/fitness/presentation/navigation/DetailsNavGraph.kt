@@ -1,12 +1,15 @@
 package com.thiago.fitness.presentation.navigation
 
-import androidx.navigation.*
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import com.thiago.fitness.screens.new_exercise.NewExerciseScreen
+import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.thiago.fitness.screens.detail_training.DetailTrainingScreen
 import com.thiago.fitness.screens.my_exercise.MyExerciseScreen
+import com.thiago.fitness.screens.new_exercise.NewExerciseScreen
 import com.thiago.fitness.screens.new_training.NewTrainingScreen
-import com.thiago.fitness.screens.new_training.components.NewTraining
 import com.thiago.fitness.screens.profile_update.ProfileUpdateScreen
 import com.thiago.fitness.screens.update_training.UpdateTrainingScreen
 
@@ -25,15 +28,12 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
             NewExerciseScreen(navController = navController)
         }
 
-//        composable(route = DetailsScreen.NewExercise.route) {
-//            MyExerciseScreen(navController = navController)
-//        }
         composable(
             route = DetailsScreen.ProfileUpdate.route,
             arguments = listOf(navArgument("user") {
                 type = NavType.StringType
             })
-        ) {
+        ) { it ->
             it.arguments?.getString("user")?.let {
                 ProfileUpdateScreen(navController, user = it)
             }
@@ -44,18 +44,17 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("training") {
                 type = NavType.StringType
             })
-        ) {
+        ) { it ->
             it.arguments?.getString("training")?.let {
                 DetailTrainingScreen(navController, training = it)
             }
         }
-
         composable(
             route = DetailsScreen.UpdateTraining.route,
             arguments = listOf(navArgument("training") {
                 type = NavType.StringType
             })
-        ) {
+        ) { it ->
             it.arguments?.getString("training")?.let {
                 UpdateTrainingScreen(navController, training = it)
             }
@@ -70,12 +69,8 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
             val trainingId = backStackEntry.arguments?.getString("trainingId")
             if (trainingId != null) {
                 MyExerciseScreen(navController = navController, trainingId = trainingId)
-            } else {
-                // Trate o caso em que o trainingId é nulo
             }
         }
-
-
 
     }
 
@@ -84,7 +79,6 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
 sealed class DetailsScreen(val route: String) {
 
     data object NewTraining : DetailsScreen("training/new")
-
 
 
     data object NewExercise : DetailsScreen("training/exercise/new")

@@ -26,31 +26,31 @@ class ProfileUpdateViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    // STATE FORM
+
     var state by mutableStateOf(ProfileUpdateState())
         private set
 
     var usernameErrMsg by mutableStateOf("")
         private set
 
-    // ARGUMENTS
+
     val data = savedStateHandle.get<String>("user")
     val user = User.fromJson(data!!)
 
-    // RESPONSE
+
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
     var saveImageResponse by mutableStateOf<Response<String>?>(null)
         private set
 
-    // FILE
+
     var file: File? = null
 
     val resultingActivityHandler = ResultingActivityHandler()
 
     init {
-        // SET ARGUMENTS
+
         state = state.copy(
             username = user.username,
             image = user.image
@@ -105,7 +105,7 @@ class ProfileUpdateViewModel @Inject constructor(
         if (state.username.length >= 5) {
             usernameErrMsg = ""
         } else {
-            usernameErrMsg = "O nome deverá ter ao menos 5 caracteres"
+            usernameErrMsg = "The name must have at least 5 characters"
         }
     }
 

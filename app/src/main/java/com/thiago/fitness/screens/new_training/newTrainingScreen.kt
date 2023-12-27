@@ -22,7 +22,7 @@ fun NewTrainingScreen(navController: NavHostController, viewModel: NewTrainingVi
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Novo Post",
+                title = "New Training",
                 upAvailable = true,
                 navController = navController
             )
@@ -33,7 +33,7 @@ fun NewTrainingScreen(navController: NavHostController, viewModel: NewTrainingVi
         bottomBar = {
             DefaultButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "PUBLICAR",
+                text = "PUBLISH",
                 onClick = { viewModel.onNewTraining() }
             )
         }

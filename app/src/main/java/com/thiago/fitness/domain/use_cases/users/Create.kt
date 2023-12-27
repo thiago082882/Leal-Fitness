@@ -4,7 +4,7 @@ import com.thiago.fitness.domain.model.User
 import com.thiago.fitness.domain.repository.UsersRepository
 import javax.inject.Inject
 
-class Create @Inject constructor( private val repository: UsersRepository) {
+class Create @Inject constructor(private val repository: UsersRepository) {
 
-    suspend operator  fun invoke(user: User) = repository.create(user)
+    suspend operator fun invoke(user: User) = repository.create(user)
 }

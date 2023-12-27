@@ -12,9 +12,9 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
 
     override val currentUser: FirebaseUser? get() = firebaseAuth.currentUser
 
-    override suspend fun login(email: String, senha: String): Response<FirebaseUser> {
+    override suspend fun login(email: String, password: String): Response<FirebaseUser> {
         return try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, senha).await()
+            val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             Response.Success(result.user!!)
         }
         catch (e: Exception) {
@@ -23,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
         }
     }
 
-    override suspend fun sigUp(user: User): Response<FirebaseUser> {
+    override suspend fun signUp(user: User): Response<FirebaseUser> {
 
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()

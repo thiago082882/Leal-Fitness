@@ -13,7 +13,6 @@ import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
 import com.thiago.fitness.domain.use_cases.training.TrainingUseCases
 import com.thiago.fitness.presentation.utils.ComposeFileProvider
 import com.thiago.fitness.presentation.utils.ResultingActivityHandler
-import com.thiago.gamermvvmapp.screens.update_post.UpdatePostState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -30,21 +29,19 @@ class UpdateTrainingViewModel @Inject constructor(
 
     var state by mutableStateOf(UpdatePostState())
 
-    // FILE
+
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
-    // ARGUMENTS
+
     val data = savedStateHandle.get<String>("training")
     val training = Training.fromJson(data!!)
 
-    // RESPONSE
+
     var updatePostResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
-    //USER SESSION
     val currentUser = authUseCases.getCurrentUser()
-
 
     init {
         state = state.copy(
@@ -55,13 +52,13 @@ class UpdateTrainingViewModel @Inject constructor(
         )
     }
 
-    fun updatePost(training: Training) = viewModelScope.launch {
+    fun updateTraining(training: Training) = viewModelScope.launch {
         updatePostResponse = Response.Loading
         val result = trainingUseCases.updateTraining(training, file)
         updatePostResponse = result
     }
 
-    fun onUpdatePost() {
+    fun onUpdateTraining() {
         val training = Training(
             id = training.id,
             name = state.name,
@@ -70,7 +67,7 @@ class UpdateTrainingViewModel @Inject constructor(
             image = training.image,
             idUser = currentUser?.uid ?: ""
         )
-        updatePost(training)
+        updateTraining(training)
     }
 
     fun pickImage() = viewModelScope.launch {
@@ -90,12 +87,12 @@ class UpdateTrainingViewModel @Inject constructor(
     }
 
     fun clearForm() {
-//        state = state.copy(
-//            name ="",
-//            category = "",
-//            description = "",
-//            image = ""
-//        )
+        state = state.copy(
+            name ="",
+            category = "",
+            description = "",
+            image = ""
+        )
         updatePostResponse = null
     }
 

@@ -12,7 +12,7 @@ import com.thiago.fitness.screens.update_training.UpdateTrainingViewModel
 fun UpdateTraining(viewModel: UpdateTrainingViewModel = hiltViewModel()) {
 
     when (val response = viewModel.updatePostResponse) {
-        // MOSTRAR QUE SE ESTA REALIZANDO LA PETICION Y TODAVIA ESTA EN PROCESO
+
         Response.Loading -> {
             ProgressBar()
         }
@@ -21,7 +21,7 @@ fun UpdateTraining(viewModel: UpdateTrainingViewModel = hiltViewModel()) {
             viewModel.clearForm()
             Toast.makeText(
                 LocalContext.current,
-                "A publicação foi  atualizada corretamente",
+                "The post has been updated correctly",
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -29,7 +29,7 @@ fun UpdateTraining(viewModel: UpdateTrainingViewModel = hiltViewModel()) {
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                response.exception?.message ?: "Error desconhecido",
+                response.exception?.message ?: "Unknown error",
                 Toast.LENGTH_LONG
             ).show()
         }

@@ -16,17 +16,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.google.firebase.Timestamp
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.presentation.navigation.DetailsScreen
 import com.thiago.fitness.presentation.utils.formatTimestamp
 import com.thiago.fitness.screens.training.TrainingViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
-    @Composable
+@Composable
     fun TrainingCard(navController: NavHostController, training: Training, viewModel: TrainingViewModel = hiltViewModel()) {
         Card(
             modifier = Modifier

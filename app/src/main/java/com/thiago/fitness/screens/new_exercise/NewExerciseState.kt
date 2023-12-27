@@ -10,4 +10,5 @@ data class NewExerciseState(
  var image: String = "",
 
 
+
 )

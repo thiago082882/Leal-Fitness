@@ -1,8 +1,7 @@
 package com.thiago.fitness.screens.login
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -25,11 +24,11 @@ fun LoginScreen(navController: NavHostController) {
     Scaffold(
         topBar = {},
         content = {
-            LoginContent(navController=navController)
+            LoginContent(navController = navController)
         },
         bottomBar = {
 
-            LoginBottomBar(navController=navController)
+            LoginBottomBar(navController = navController)
         }
 
     )
@@ -41,7 +40,7 @@ fun LoginScreen(navController: NavHostController) {
 @Composable
 fun DefaultPreview() {
     AllFitnessTheme(darkTheme = true) {
-        // A surface container using the 'background' color from the theme
+
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background

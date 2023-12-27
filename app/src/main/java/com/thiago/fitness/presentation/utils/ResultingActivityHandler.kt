@@ -20,26 +20,27 @@ class ResultingActivityHandler {
     suspend fun takePicturePreview(
         maxTry: Int = 10,
         millis: Long = 200,
-    ): Bitmap?{
+    ): Bitmap? {
         return request(
             ActivityResultContracts
                 .TakePicturePreview(),
             maxTry,
             millis
-        ){
+        ) {
             it.launch()
         }
     }
+
     suspend fun getContent(
         type: String,
         maxTry: Int = 10,
         millis: Long = 200,
-    ): Uri?{
+    ): Uri? {
         return request(
             ActivityResultContracts.GetContent(),
             maxTry,
             millis
-        ){
+        ) {
             it.launch(type)
         }
     }
@@ -48,8 +49,8 @@ class ResultingActivityHandler {
         contract: ActivityResultContract<I, O>,
         maxTry: Int = 10,
         millis: Long = 200,
-        launcher: (ManagedActivityResultLauncher<I,O>)->Unit
-    ): O? =  suspendCancellableCoroutine {coroutine->
+        launcher: (ManagedActivityResultLauncher<I, O>) -> Unit
+    ): O? = suspendCancellableCoroutine { coroutine ->
         _callback.value = {
             val a = rememberLauncherForActivityResult(
                 contract
@@ -59,17 +60,17 @@ class ResultingActivityHandler {
                 return@rememberLauncherForActivityResult
             }
 
-            LaunchedEffect(a){
+            LaunchedEffect(a) {
                 var tried = 0
                 var tryOn = true
-                while (tryOn){
+                while (tryOn) {
                     ++tried
                     delay(millis)
                     try {
                         launcher(a)
                         tryOn = false
                     } catch (e: Exception) {
-                        if(tried>maxTry){
+                        if (tried > maxTry) {
                             tryOn = false
                             coroutine.resume(null)
                             _callback.value = null
@@ -82,7 +83,7 @@ class ResultingActivityHandler {
 
     @Composable
     fun handle() {
-        if(_callback.value!=null){
+        if (_callback.value != null) {
             _callback.value?.invoke()
         }
     }

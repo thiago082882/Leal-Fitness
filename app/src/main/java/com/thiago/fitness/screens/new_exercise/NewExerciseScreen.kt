@@ -20,7 +20,7 @@ fun NewExerciseScreen(navController: NavHostController, viewModel: NewExerciseVi
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Novo Exercise",
+                title = "New Exercise",
                 upAvailable = true,
                 navController = navController
             )
@@ -31,8 +31,8 @@ fun NewExerciseScreen(navController: NavHostController, viewModel: NewExerciseVi
         bottomBar = {
             DefaultButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "PUBLICAR",
-                onClick = { viewModel.onNewTraining() }
+                text = "PUBLISH",
+                onClick = { viewModel.onNewExercise() }
             )
         }
     )

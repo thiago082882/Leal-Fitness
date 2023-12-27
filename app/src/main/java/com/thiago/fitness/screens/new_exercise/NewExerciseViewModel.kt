@@ -8,10 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thiago.fitness.domain.model.Exercise
 import com.thiago.fitness.domain.model.Response
-import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
 import com.thiago.fitness.domain.use_cases.exercise.ExerciseUseCases
-import com.thiago.fitness.domain.use_cases.training.TrainingUseCases
 import com.thiago.fitness.presentation.utils.ComposeFileProvider
 import com.thiago.fitness.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,32 +27,32 @@ class NewExerciseViewModel @Inject constructor(
 
     var state by mutableStateOf(NewExerciseState())
 
-    // FILE
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
-    // RESPONSE
+
     var createPostResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
-    //USER SESSION
+
     val currentUser = authUseCases.getCurrentUser()
 
 
-    fun createPost(exercise: Exercise) = viewModelScope.launch {
+    fun createExercise(exercise: Exercise, file: File, trainingId: String) = viewModelScope.launch {
         createPostResponse = Response.Loading
-        val result = exerciseUseCase.createExercise(exercise, file!!)
+        val result = exerciseUseCase.createExercise(exercise, file, trainingId)
         createPostResponse = result
     }
 
-    fun onNewTraining() {
+    fun onNewExercise() {
         val exercise = Exercise(
             name = state.name,
             remarks = state.remarks,
             trainingId = currentUser?.uid ?: ""
         )
-        createPost(exercise )
+        createExercise(exercise, file!!, currentUser?.uid ?: "")
     }
+
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")

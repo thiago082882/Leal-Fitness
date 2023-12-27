@@ -5,13 +5,21 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,10 +58,8 @@ fun ProfileUpdateContent(
     )
     Box(
         modifier = Modifier
-            .fillMaxWidth(),
-
-
-        ) {
+            .fillMaxWidth()
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,7 +94,7 @@ fun ProfileUpdateContent(
                                 dialogState.value = true
                             },
                         painter = painterResource(id = R.drawable.user),
-                        contentDescription = "Imagem de usuario"
+                        contentDescription = "User image"
                     )
                 }
 
@@ -111,13 +117,13 @@ fun ProfileUpdateContent(
                             start = 0.dp,
                             end = 0.dp
                         ),
-                    text = "ATUALIZAÇÃO",
+                    text = "UPDATE",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Por favor inserir seus dados para continuar",
+                    text = "Please enter your details to continue",
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
@@ -125,7 +131,7 @@ fun ProfileUpdateContent(
                     modifier = Modifier.padding(top = 25.dp),
                     value = state.username,
                     onValueChange = { viewModel.onUsernameInput(it) },
-                    label = "Nome de usuario",
+                    label = "User name",
                     icon = Icons.Default.Person,
                     errorMsg = viewModel.usernameErrMsg,
                     validateField = { viewModel.validateUsername() }
@@ -135,7 +141,7 @@ fun ProfileUpdateContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 40.dp),
-                    text = "EDITAR PERFIL",
+                    text = "EDIT PROFILE",
                     onClick = { viewModel.saveImage() },
                 )
             }

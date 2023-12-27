@@ -17,6 +17,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class UsersRepositoryImpl @Inject constructor(
+
     @Named(Constants.USERS) private val usersRef: CollectionReference,
     @Named(Constants.USERS) private val storageUsersRef: StorageReference,
 
@@ -56,7 +57,7 @@ class UsersRepositoryImpl @Inject constructor(
         return try {
             val fromFile = Uri.fromFile(file)
             val ref = storageUsersRef.child(file.name)
-            val uploadTask = ref.putFile(fromFile).await()
+            ref.putFile(fromFile).await()
             val url = ref.downloadUrl.await()
             return Response.Success(url.toString())
 
@@ -70,8 +71,6 @@ class UsersRepositoryImpl @Inject constructor(
         val snapshotListener = usersRef.document(id).addSnapshotListener { snapshot, e ->
             val user = snapshot?.toObject(User::class.java) ?: User()
             trySend(user)
-
-
         }
         awaitClose {
             snapshotListener.remove()

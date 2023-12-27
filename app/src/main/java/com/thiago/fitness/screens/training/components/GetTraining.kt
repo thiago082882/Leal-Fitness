@@ -25,11 +25,14 @@ fun GetTraining(navController: NavHostController, viewModel: TrainingViewModel =
                 trainings = response.data
             )
         }
+
         is Response.Failure -> {
 
-            Toast.makeText(LocalContext.current,
-                response.exception?.message ?: "Error desconhecido",
-                Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                LocalContext.current,
+                response.exception?.message ?: "Unknown error",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
         else -> {}

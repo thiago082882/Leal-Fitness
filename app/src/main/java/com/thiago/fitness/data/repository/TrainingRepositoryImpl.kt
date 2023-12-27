@@ -3,7 +3,6 @@ package com.thiago.fitness.data.repository
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.storage.StorageReference
 import com.thiago.fitness.core.Constants.TRAINING
 import com.thiago.fitness.core.Constants.USERS
@@ -12,7 +11,6 @@ import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.domain.model.User
 import com.thiago.fitness.domain.repository.TrainingRepository
 import kotlinx.coroutines.DelicateCoroutinesApi
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -33,6 +31,7 @@ class TrainingRepositoryImpl @Inject constructor(
 
     ) : TrainingRepository {
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun getTraining(): Flow<Response<List<Training>>> = callbackFlow {
 
         val snapshotListener = trainingRef.addSnapshotListener { snapshot, e ->
@@ -40,6 +39,7 @@ class TrainingRepositoryImpl @Inject constructor(
 
             GlobalScope.launch(Dispatchers.IO) {
                 val trainingResponse = if (snapshot != null) {
+
                     val training = snapshot.toObjects(Training::class.java)
 
                     snapshot.documents.forEachIndexed { index, document ->
@@ -56,100 +56,96 @@ class TrainingRepositoryImpl @Inject constructor(
 
                     idUserList.map { id ->
                         async {
-                            val user = usersRef.document(id).get().await().toObject(User::class.java)!!
+                            val user =
+                                usersRef.document(id).get().await().toObject(User::class.java)!!
                             training.forEach { training ->
                                 if (training.idUser == id) {
                                     training.user = user
                                 }
                             }
 
-                            Log.d("TrainingRepositoryImpl", "Id: ${id}")
+                            Log.d("TrainingRepositoryImpl", "Id: $id")
                         }
                     }.forEach {
                         it.await()
                     }
 
                     Response.Success(training)
-                }
-                else {
-                    Response.Failure(e)
-                }
-                trySend(trainingResponse)
-            }
-
-        }
-        awaitClose {
-            snapshotListener.remove()
-        }
-    }
-
-    override fun getTrainingByUserId(idUser: String): Flow<Response<List<Training>>> = callbackFlow {
-        val snapshotListener =
-            trainingRef.whereEqualTo("idUser", idUser).addSnapshotListener { snapshot, e ->
-
-
-                val trainingResponse = if (snapshot != null) {
-                    val listTraining = snapshot.toObjects(Training::class.java)
-                    snapshot.documents.forEachIndexed{
-                        index,document ->
-                        listTraining[index].id = document.id
-
-                    }
-
-
-                    Response.Success(listTraining)
                 } else {
                     Response.Failure(e)
-
                 }
                 trySend(trainingResponse)
             }
 
-
-
+        }
         awaitClose {
             snapshotListener.remove()
         }
     }
+
+    override fun getTrainingByUserId(idUser: String): Flow<Response<List<Training>>> =
+        callbackFlow {
+            val snapshotListener =
+                trainingRef.whereEqualTo("idUser", idUser).addSnapshotListener { snapshot, e ->
+
+                    val trainingResponse = if (snapshot != null) {
+                        val listTraining = snapshot.toObjects(Training::class.java)
+                        snapshot.documents.forEachIndexed { index, document ->
+                            listTraining[index].id = document.id
+
+                        }
+
+                        Response.Success(listTraining)
+                    } else {
+                        Response.Failure(e)
+
+                    }
+                    trySend(trainingResponse)
+                }
+
+            awaitClose {
+                snapshotListener.remove()
+            }
+        }
 
     override suspend fun create(training: Training, file: File): Response<Boolean> {
 
         return try {
-            //IMAGE
+
             val fromFile = Uri.fromFile(file)
             val ref = storageTrainingRef.child(file.name)
-            val uploadTask = ref.putFile(fromFile).await()
+            ref.putFile(fromFile).await()
             val url = ref.downloadUrl.await()
-
-            //DATA
             training.image = url.toString()
             trainingRef.add(training).await()
             Response.Success(true)
-
 
         } catch (e: Exception) {
             e.printStackTrace()
             Response.Failure(e)
         }
     }
+
     override suspend fun update(training: Training, file: File?): Response<Boolean> {
         return try {
-            // IMAGE
+
             if (file != null) {
                 val fromFile = Uri.fromFile(file)
                 val ref = storageTrainingRef.child(file.name)
-                val uploadTask = ref.putFile(fromFile).await()
+                ref.putFile(fromFile).await()
                 val url = ref.downloadUrl.await()
                 training.image = url.toString()
             }
             val map: MutableMap<String, Any> = HashMap()
+
             map["name"] = training.name
             map["description"] = training.description
             map["image"] = training.image
             map["category"] = training.category
-            map["data"]= training.data
-            // DATA
+            map["data"] = training.data
+
             trainingRef.document(training.id).update(map).await()
+
             Response.Success(true)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -163,13 +159,12 @@ class TrainingRepositoryImpl @Inject constructor(
             trainingRef.document(idTraining).delete().await()
             Response.Success(true)
 
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
             Response.Failure(e)
         }
 
     }
-
 
 
 }

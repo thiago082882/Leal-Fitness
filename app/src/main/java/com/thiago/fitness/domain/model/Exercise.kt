@@ -1,7 +1,8 @@
 package com.thiago.fitness.domain.model
 
 
-data class Exercise(
+data class Exercise (
+
     var id: String = "",
     val name: String = "",
     val remarks: String = "",

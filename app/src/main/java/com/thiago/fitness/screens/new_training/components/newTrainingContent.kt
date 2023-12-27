@@ -16,6 +16,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -43,7 +44,7 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
 
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
-    var dialogState = remember { mutableStateOf(false) }
+    val dialogState = remember { mutableStateOf(false) }
 
     DialogCapturePicture(
         status = dialogState,
@@ -94,10 +95,10 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                                     dialogState.value = true
                                 },
                             painter = painterResource(id = R.drawable.header),
-                            contentDescription = "Imagem do usuario"
+                            contentDescription = "User image"
                         )
                         Text(
-                            text = "SELECIONAR UMA IMAGEM",
+                            text = "SELECT AN IMAGE",
                             fontSize = 19.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -112,8 +113,8 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
-                label = "Nome do Jogo",
-                icon = Icons.Default.Face,
+                label = "Training Name",
+                icon = Icons.Default.FitnessCenter,
                 errorMsg = "",
                 validateField = {
 
@@ -125,7 +126,7 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                     .padding(top = 0.dp, start = 20.dp, end = 20.dp),
                 value = state.description,
                 onValueChange = { viewModel.onDescriptionInput(it) },
-                label = "Descrição",
+                label = "Description",
                 icon = Icons.Default.List,
                 errorMsg = "",
                 validateField = {

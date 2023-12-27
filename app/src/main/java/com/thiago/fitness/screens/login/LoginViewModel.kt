@@ -1,49 +1,50 @@
 package com.thiago.fitness.screens.login
 
 import android.util.Patterns
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.thiago.fitness.domain.model.Response
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases) : ViewModel() {
 
-    // STATE FORM
+
     var state by mutableStateOf(LoginState())
         private set
 
-    // EMAIL VALIDATIONS
+
     var isEmailValid by mutableStateOf(false)
         private set
 
     var emailErrMsg by mutableStateOf("")
         private set
 
-    // PASSWORD VALIDATIONS
+
     var isPasswordValid by mutableStateOf(false)
         private set
+
     var passwordErrMsg by mutableStateOf("")
         private set
 
-    // ENABLE BUTTON
+
     var isEnabledLoginButton = false
 
-    // LOGIN RESPONSE
+
     var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
         private set
 
     val currentUser = authUseCases.getCurrentUser()
 
     init {
-        if (currentUser != null) { // SESION INICIADA
+        if (currentUser != null) {
             loginResponse = Response.Success(currentUser)
         }
     }
@@ -63,18 +64,18 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
     }
 
     fun enabledLoginButton() {
+
         isEnabledLoginButton = isEmailValid && isPasswordValid
     }
 
     fun validateEmail() {
-        // ES UN EMAIL VALIDO
+
         if (Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
             isEmailValid = true
             emailErrMsg = ""
-        }
-        else {
+        } else {
             isEmailValid = false
-            emailErrMsg = "O email não é valido"
+            emailErrMsg = "The email is not valid"
         }
 
         enabledLoginButton()
@@ -84,10 +85,9 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
         if (state.password.length >= 6) {
             isPasswordValid = true
             passwordErrMsg = ""
-        }
-        else {
+        } else {
             isPasswordValid = false
-            passwordErrMsg = "Ao  menos 6 caracteres"
+            passwordErrMsg = "At least 6 characters"
         }
 
         enabledLoginButton()

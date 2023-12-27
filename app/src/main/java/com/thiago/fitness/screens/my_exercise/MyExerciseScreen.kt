@@ -17,7 +17,7 @@ import com.thiago.fitness.screens.my_exercise.components.GetExerciseByIdUser
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MyExerciseScreen(navController: NavHostController,trainingId: String) {
+fun MyExerciseScreen(navController: NavHostController, trainingId: String) {
 
     Scaffold(
         content = {

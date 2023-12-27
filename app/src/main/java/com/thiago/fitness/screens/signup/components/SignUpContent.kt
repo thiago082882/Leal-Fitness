@@ -1,22 +1,24 @@
 package com.thiago.fitness.screens.signup.components
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
-
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,17 +27,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.thiago.fitness.R
-import com.thiago.fitness.domain.model.Response
 import com.thiago.fitness.presentation.components.DefaultButton
 import com.thiago.fitness.presentation.components.DefaultTextField
-import com.thiago.fitness.presentation.ui.theme.DarkGray500
 import com.thiago.fitness.presentation.ui.theme.Blue200
+import com.thiago.fitness.presentation.ui.theme.DarkGray500
 import com.thiago.fitness.screens.signup.SignupViewModel
 
 
-
 @Composable
-fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
+fun SignUpContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
 
     val state = viewModel.state
     Box(
@@ -47,12 +47,14 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
             modifier = Modifier
                 .fillMaxWidth()
                 .height(280.dp)
-                .background(Blue200) //trocar
+                .background(Blue200)
 
         ) {
 
             Column(
-                modifier = Modifier.fillMaxWidth().padding(top = 45.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 45.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
@@ -70,10 +72,8 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
             modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 200.dp),
             backgroundColor = DarkGray500,
         ) {
-
             Column(
                 modifier = Modifier.padding(horizontal = 20.dp)
-
             ) {
                 Text(
                     modifier = Modifier
@@ -83,15 +83,14 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                             start = 0.dp,
                             end = 0.dp
                         ),
-
-                    text = "REGISTRAR",
+                    text = "REGISTER",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Por favor inserir seus dados para continuar",
+                    text = "Please enter your details to continue",
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
@@ -99,7 +98,7 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                     modifier = Modifier.padding(top = 10.dp),
                     value = state.username,
                     onValueChange = { viewModel.onUsernameInput(it) },
-                    label = "Nome de usuario",
+                    label = "User name",
                     icon = Icons.Default.Person,
                     errorMsg = viewModel.usernameErrMsg,
                     validateField = { viewModel.validateUsername() }
@@ -109,7 +108,7 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                     modifier = Modifier.padding(top = 0.dp),
                     value = state.email,
                     onValueChange = { viewModel.onEmailInput(it) },
-                    label = "email",
+                    label = "Email",
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
                     errorMsg = viewModel.emailErrMsg,
@@ -119,7 +118,7 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                     modifier = Modifier.padding(top = 0.dp),
                     value = state.password,
                     onValueChange = { viewModel.onPasswordInput(it) },
-                    label = "senha",
+                    label = "Password",
                     icon = Icons.Default.Lock,
                     hideText = true,
                     errorMsg = viewModel.passwordErrMsg,
@@ -129,7 +128,7 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                     modifier = Modifier.padding(top = 0.dp),
                     value = state.confirmPassword,
                     onValueChange = { viewModel.onConfirmPasswordInput(it) },
-                    label = "Confirmar senha",
+                    label = "Confirm password",
                     icon = Icons.Outlined.Lock,
                     hideText = true,
                     errorMsg = viewModel.confirmPasswordErrMsg,
@@ -139,7 +138,7 @@ fun SignUpContent(navController : NavHostController, viewModel: SignupViewModel 
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 20.dp),
-                    text = "REGISTRAR",
+                    text = "REGISTER",
                     onClick = { viewModel.onSignup() },
                     enabled = viewModel.isEnabledLoginButton
                 )

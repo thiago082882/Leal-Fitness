@@ -8,6 +8,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +23,6 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.presentation.navigation.DetailsScreen
-import com.thiago.fitness.screens.my_exercise.MyExerciseViewModel
 import com.thiago.fitness.screens.my_training.MyTrainingViewModel
 
 
@@ -34,34 +34,42 @@ fun MyTrainingCard(
 ) {
     Card(
         modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 16.dp)
+            .padding(top = 0.dp, bottom = 15.dp)
             .clickable {
                 navController.navigate(route = DetailsScreen.ExerciseList.passExercise(training.toJson()))
             },
         elevation = 4.dp,
-        shape = RoundedCornerShape(20.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp) // Altura aumentada para ajustar o tamanho da imagem
+        shape = RoundedCornerShape(20.dp),
+        contentColor = Color.White,
+
         ) {
-            Box(
+        Column() {
+            AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(170.dp),
+                model = training.image,
+                contentDescription = "",
+                contentScale = ContentScale.Crop
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
+                text = "Name Training: ${training.name}",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            Text(
+                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
+                text = "Description: ${training.description}",
+                fontSize = 14.sp,
+                maxLines = 3,
+                color = Color.Gray
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(170.dp),
-                    model = training.image,
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop
-                )
                 IconButton(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(8.dp),
                     onClick = {
                         navController.navigate(
                             route = DetailsScreen.UpdateTraining.passTraining(
@@ -77,28 +85,18 @@ fun MyTrainingCard(
                         tint = Color.White
                     )
                 }
-            }
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "Nome: ${training.name}",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Descrição: ${training.description}",
-                    fontSize = 14.sp,
-                    maxLines = 3,
-                    color = Color.Gray
-                )
+                IconButton(onClick = { viewModel.delete(training.id) }) {
+                    Icon(
+                        modifier = Modifier.size(25.dp),
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
             }
 
         }
     }
-
-
 }
+
+

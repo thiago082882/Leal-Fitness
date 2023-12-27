@@ -7,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -85,10 +86,10 @@ fun NewExerciseContent(viewModel: NewExerciseViewModel = hiltViewModel()) {
                                     dialogState.value = true
                                 },
                             painter = painterResource(id = R.drawable.header),
-                            contentDescription = "Imagem do usuario"
+                            contentDescription = "User image"
                         )
                         Text(
-                            text = "SELECIONAR UMA IMAGEM",
+                            text = "SELECT AN IMAGE",
                             fontSize = 19.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -103,8 +104,8 @@ fun NewExerciseContent(viewModel: NewExerciseViewModel = hiltViewModel()) {
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
-                label = "Nome do Jogo",
-                icon = Icons.Default.Face,
+                label = "Exercise Name",
+                icon = Icons.Default.FitnessCenter,
                 errorMsg = "",
                 validateField = {
 
@@ -116,7 +117,7 @@ fun NewExerciseContent(viewModel: NewExerciseViewModel = hiltViewModel()) {
                     .padding(top = 0.dp, start = 20.dp, end = 20.dp),
                 value = state.remarks,
                 onValueChange = { viewModel.onDescriptionInput(it) },
-                label = "Descrição",
+                label = "Observation",
                 icon = Icons.Default.List,
                 errorMsg = "",
                 validateField = {

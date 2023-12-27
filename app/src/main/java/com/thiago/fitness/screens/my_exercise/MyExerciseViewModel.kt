@@ -24,16 +24,16 @@ class MyExerciseViewModel @Inject constructor(
     val currentUser = authUseCases.getCurrentUser()
 
     init {
-        getPosts()
+        getExercise()
     }
 
-//    fun delete(idTraining: String) = viewModelScope.launch {
-//        deleteResponse = Response.Loading
-//        val result = exerciseUseCases.deleteTraining(idTraining)
-//        deleteResponse = result
-//    }
+    fun delete(idExercise: String) = viewModelScope.launch {
+        deleteResponse = Response.Loading
+        val result = exerciseUseCases.deleteExercise(idExercise)
+        deleteResponse = result
+    }
 
-    fun getPosts() = viewModelScope.launch {
+    fun getExercise() = viewModelScope.launch {
         exerciseResponse = Response.Loading
         exerciseUseCases.getExercisesByTrainingUseCases(currentUser?.uid ?: "").collect() { response ->
             exerciseResponse = response

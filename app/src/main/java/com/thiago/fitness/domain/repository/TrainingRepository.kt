@@ -12,7 +12,7 @@ interface TrainingRepository {
     fun getTrainingByUserId(idUser: String): Flow<Response<List<Training>>>
 
     suspend fun create(training: Training, file: File): Response<Boolean>
-    suspend fun update(training: Training,file: File?): Response<Boolean>
+    suspend fun update(training: Training, file: File?): Response<Boolean>
     suspend fun delete(idTraining: String): Response<Boolean>
 
 
