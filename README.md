@@ -1,5 +1,5 @@
 
-# <img align="center" alt="Daniel-HTML" height="30" width="30" src="https://cdn-icons-png.flaticon.com/512/1474/1474155.png"> Gamer App - Jetpack Compose
+# <img align="center" alt="Daniel-HTML" height="30" width="30" src="https://cdn-icons-png.flaticon.com/512/4729/4729230.png"> Leal Fitness- Jetpack Compose
 
 <div align="center">
 </div>
@@ -11,16 +11,8 @@
 - [Tecnologias utilizadas](#-Ferramentas-utilizadas)
 - [Biliotecas utilizadas](#-Biliotecas-utilizadas)
 
----
-
-<div align="center">
-
-<img src="https://user-images.githubusercontent.com/93166095/226715310-6c47a646-2eb7-4a84-a6e5-fd816268c155.gif" width="300">
-
-
- </div>
-
-## 🖥 Preview (Em Andamento)
+--
+## 🖥 Preview 
 
 <div align="center">
 
@@ -35,7 +27,7 @@
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/52796e78-3094-480e-bd3e-e1a152fb5422" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/5df086fc-f68b-4d02-8c74-df6027677412" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/c47e0eba-e80e-4986-8605-21271d00003c" width="200">
-<img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/32942711-7300-482f-aa64-b54012b7454e" width="200">
+<img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/3bd380e0-e9b4-4ab3-8d0b-a89f46bb1323" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/eba0cc1f-5948-4f7f-93c0-31c56e318546" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/ce69c921-d135-48b8-a58a-adbc37e491d9" width="200">
 <img src="https://github.com/thiago082882/Leal-Fitness/assets/93166095/f79b608c-650a-4d18-9b2d-bc867eb62a55" width="200">
