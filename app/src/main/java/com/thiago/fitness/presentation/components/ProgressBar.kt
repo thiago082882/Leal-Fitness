@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun ProgressBar(){
+fun ProgressBar() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()

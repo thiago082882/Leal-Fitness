@@ -1,5 +1,7 @@
 package com.thiago.fitness.screens.detail_training.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -9,11 +11,16 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,8 +28,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.thiago.fitness.R
 import com.thiago.fitness.presentation.ui.theme.AllFitnessTheme
 import com.thiago.fitness.presentation.ui.theme.Blue200
+import com.thiago.fitness.presentation.ui.theme.DarkGray900
+import com.thiago.fitness.presentation.ui.theme.White
 import com.thiago.fitness.screens.detail_training.DetailTrainingViewModel
 
 
@@ -31,29 +41,34 @@ fun DetailTrainingContent(
     navController: NavHostController,
     viewModel: DetailTrainingViewModel = hiltViewModel(),
 ) {
-
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-
-        Box() {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+        ) {
             AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
+                modifier = Modifier.fillMaxSize(),
                 model = viewModel.training.image,
                 contentDescription = "",
                 contentScale = ContentScale.Crop
-
             )
-            IconButton(onClick = { navController?.popBackStack() }) {
+            IconButton(
+                onClick = { navController?.popBackStack() },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(35.dp)
+                    .align(Alignment.TopStart)
+            ) {
                 Icon(
-                    modifier = Modifier.size(35.dp),
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "",
-                    tint = Color.White
+                    tint = DarkGray900,
+
                 )
             }
         }
@@ -61,90 +76,103 @@ fun DetailTrainingContent(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 15.dp, horizontal = 15.dp),
-                elevation = 4.dp,
-                shape = RoundedCornerShape(12.dp)
+                    .padding(16.dp),
+                elevation = 8.dp,
+                shape = RoundedCornerShape(16.dp)
             ) {
-
                 Row(
-                    modifier = Modifier.padding(vertical = 18.dp, horizontal = 15.dp)
-
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    AsyncImage(
-                        modifier = Modifier
-                            .size(55.dp)
-                            .clip(CircleShape),
-                        model = viewModel.training.user?.image,
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop
+                    if (viewModel.training.user?.image != "") {
+                        AsyncImage(
+                            modifier = Modifier
+                                .size(55.dp)
+                                .clip(CircleShape),
+                            model = viewModel.training.user?.image,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop
 
-                    )
-                    Column(
-                        modifier = Modifier.padding(top = 7.dp, start = 20.dp)
-                    ) {
+                        )
+                    }else {
+                        Image(
+                            modifier = Modifier.size(55.dp),
+                            painter = painterResource(id = R.drawable.user),
+                            contentDescription = ""
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Column {
                         Text(
                             text = viewModel.training.user?.username!!,
-                            fontSize = 14.sp
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = viewModel.training.user?.email!!,
-                            fontSize = 12.sp
+                            fontSize = 14.sp,
+                            color = Color.Gray
                         )
                     }
-
                 }
-
             }
+
         } else {
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(16.dp))
         }
 
         Text(
             modifier = Modifier.padding(start = 20.dp, bottom = 15.dp),
-            text = viewModel.training.name,
-            fontSize = 20.sp,
-            color = Blue200,
+            text = buildAnnotatedString {
+                append("TRAINING : ")
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Normal,
+                        color = Blue200 
+                    )
+                ) {
+                    append(viewModel.training.name)
+                }
+            },
+            fontSize = 18.sp,
+            color = White,
             fontWeight = FontWeight.Bold
         )
-        Card(
-            modifier = Modifier.padding(start = 13.dp, bottom = 15.dp),
-            elevation = 4.dp,
-            shape = RoundedCornerShape(20.dp)
-        ) {
+
             Row(
-                modifier = Modifier.padding(vertical = 7.dp, horizontal = 20.dp),
+                modifier = Modifier.padding(vertical = 10.dp, horizontal = 24.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-
                 Spacer(
-                    modifier = Modifier.width(7.dp)
+                    modifier = Modifier.width(10.dp)
                 )
                 Text(
                     text = viewModel.training.category,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp
+                    fontSize = 18.sp
                 )
+                Divider(
+                    modifier = Modifier.padding(end = 5.dp, top = 12.dp, bottom = 12.dp),
+                    startIndent = 5.dp,
+                    thickness = 4.dp,
+                    color = Color.DarkGray
+                )
+
             }
 
-        }
-        Divider(
-            modifier = Modifier.padding(end = 20.dp, top = 10.dp, bottom = 10.dp),
-            startIndent = 20.dp,
-            thickness = 1.dp,
-            color = Color.DarkGray
+        Text(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+            text = "DESCRIPTION",
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
+        Text(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 7.dp),
+            text = viewModel.training.description,
+            fontSize = 16.sp
         )
 
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-            text = "DESCRIÇÃO",
-            fontWeight = FontWeight.Bold,
-            fontSize = 17.sp
-        )
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp),
-            text = viewModel.training.description,
-            fontSize = 14.sp
-        )
+
     }
 
 }
@@ -153,7 +181,7 @@ fun DetailTrainingContent(
 @Composable
 fun PreviewDetailPostContent() {
     AllFitnessTheme(darkTheme = true) {
-        // A surface container using the 'background' color from the theme
+
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background

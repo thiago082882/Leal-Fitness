@@ -13,10 +13,11 @@ import com.thiago.fitness.screens.signup.SignupViewModel
 
 @Composable
 fun SignUp(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
-    when(val signupResponse = viewModel.signupResponse) {
+    when (val signupResponse = viewModel.signupResponse) {
         Response.Loading -> {
             ProgressBar()
         }
+
         is Response.Success -> {
             LaunchedEffect(Unit) {
                 viewModel.createUser()
@@ -24,8 +25,13 @@ fun SignUp(navController: NavHostController, viewModel: SignupViewModel = hiltVi
                 navController.navigate(route = Graph.HOME)
             }
         }
+
         is Response.Failure -> {
-            Toast.makeText(LocalContext.current, signupResponse.exception?.message ?: "Error desconhecido", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                LocalContext.current,
+                signupResponse.exception?.message ?: "Unknown error",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
         else -> {}

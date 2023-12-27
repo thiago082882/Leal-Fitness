@@ -1,9 +1,11 @@
 package com.thiago.fitness.domain.model
 
-data class Exercise(
-    val id: Long,
-    val name: String,
+
+data class Exercise (
+
+    var id: String = "",
+    val name: String = "",
+    val remarks: String = "",
     var image: String = "",
-    val remarks: String,
-    val trainingId: Long
+    val trainingId: String = ""
 )

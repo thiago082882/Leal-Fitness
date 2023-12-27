@@ -7,14 +7,12 @@ import android.net.Uri
 import androidx.core.content.FileProvider
 import com.thiago.fitness.R
 import org.apache.commons.io.FileUtils
-import org.apache.commons.io.FileUtils.copyInputStreamToFile
-import org.apache.commons.io.FilenameUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import java.util.*
+import java.util.UUID
 
-class ComposeFileProvider: FileProvider(R.xml.file_paths) {
+class ComposeFileProvider : FileProvider(R.xml.file_paths) {
 
     companion object {
 
@@ -54,9 +52,9 @@ class ComposeFileProvider: FileProvider(R.xml.file_paths) {
         fun getPathFromBitmap(context: Context, bitmap: Bitmap): String {
             val wrapper = ContextWrapper(context)
             var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
-            file = File(file,"${UUID.randomUUID()}.jpg")
+            file = File(file, "${UUID.randomUUID()}.jpg")
             val stream: OutputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
             return file.path

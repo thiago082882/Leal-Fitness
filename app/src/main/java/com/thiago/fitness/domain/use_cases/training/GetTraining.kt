@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetTraining @Inject constructor(private val repository: TrainingRepository) {
 
-operator fun invoke() = repository.getTraining()
+    operator fun invoke() = repository.getTraining()
 }

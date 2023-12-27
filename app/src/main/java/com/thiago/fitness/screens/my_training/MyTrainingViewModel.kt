@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MyTrainingViewModel @Inject constructor(
     private val trainingUseCases: TrainingUseCases,
     private val authUseCases: AuthUseCases
-): ViewModel() {
+) : ViewModel() {
 
     var trainingResponse by mutableStateOf<Response<List<Training>>?>(null)
     var deleteResponse by mutableStateOf<Response<Boolean>?>(null)

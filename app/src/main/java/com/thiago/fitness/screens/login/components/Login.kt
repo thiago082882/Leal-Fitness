@@ -16,7 +16,8 @@ import com.thiago.fitness.screens.login.LoginViewModel
 fun Login(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
     when (val loginResponse = viewModel.loginResponse) {
-        // MOSTRAR QUE SE ESTA REALIZANDO LA PETICION Y TODAVIA ESTA EN PROCESO
+
+
         Response.Loading -> {
             ProgressBar()
         }
@@ -32,7 +33,7 @@ fun Login(navController: NavHostController, viewModel: LoginViewModel = hiltView
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                loginResponse.exception?.message ?: "Error desconhecido",
+                loginResponse.exception?.message ?: "Unknown error",
                 Toast.LENGTH_LONG
             ).show()
         }

@@ -11,7 +11,10 @@ import com.thiago.fitness.screens.my_training.MyTrainingViewModel
 
 
 @Composable
-fun GetTrainingsByIdUser(navController: NavHostController, viewModel: MyTrainingViewModel = hiltViewModel()) {
+fun GetTrainingsByIdUser(
+    navController: NavHostController,
+    viewModel: MyTrainingViewModel = hiltViewModel()
+) {
 
     when (val response = viewModel.trainingResponse) {
         Response.Loading -> {
@@ -22,14 +25,18 @@ fun GetTrainingsByIdUser(navController: NavHostController, viewModel: MyTraining
 
             MyTrainingContent(
                 navController = navController,
-                posts = response.data
+                trainings = response.data
+
             )
         }
+
         is Response.Failure -> {
 
-            Toast.makeText(LocalContext.current,
-                response.exception?.message ?: "Error desconhecido",
-                Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                LocalContext.current,
+                response.exception?.message ?: "Unknown error",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
         else -> {}

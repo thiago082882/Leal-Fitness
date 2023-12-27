@@ -3,12 +3,12 @@ package com.thiago.fitness.presentation.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +22,7 @@ fun DefaultButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    color: Color = Blue200, //mudar
+    color: Color = Blue200,
     icon: ImageVector = Icons.Default.ArrowForward,
     enabled: Boolean = true
 
@@ -42,7 +42,7 @@ fun DefaultButton(
                 imageVector = icon,
                 contentDescription = "",
 
-            )
+                )
             Spacer(modifier = Modifier.width(10.dp))
             Text(text = text)
         }

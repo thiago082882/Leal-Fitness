@@ -17,12 +17,12 @@ fun ProfileUpdateScreen(
     navController: NavHostController,
     user: String
 ) {
-    Log.d("ProfileEditScreen", "Usuario: $user")
+    Log.d("ProfileEditScreen", "User: $user")
 
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Editar usuario",
+                title = "Edit user",
                 upAvailable = true,
                 navController = navController
             )

@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewTrainingViewModel @Inject constructor(
+
     @ApplicationContext private val context: Context,
     private val trainingUseCase: TrainingUseCases,
     private val authUseCases: AuthUseCases,
@@ -27,19 +28,19 @@ class NewTrainingViewModel @Inject constructor(
 
     var state by mutableStateOf(NewTrainingState())
 
-    // FILE
+
     var file: File? = null
     val resultingActivityHandler = ResultingActivityHandler()
 
-    // RESPONSE
+
     var createPostResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
-    //USER SESSION
+
     val currentUser = authUseCases.getCurrentUser()
 
 
-    fun createPost(training: Training) = viewModelScope.launch {
+    fun createTraining(training: Training) = viewModelScope.launch {
         createPostResponse = Response.Loading
         val result = trainingUseCase.createTraining(training, file!!)
         createPostResponse = result
@@ -53,7 +54,7 @@ class NewTrainingViewModel @Inject constructor(
             data = state.data,
             idUser = currentUser?.uid ?: ""
         )
-        createPost(training)
+        createTraining(training)
     }
 
     fun pickImage() = viewModelScope.launch {

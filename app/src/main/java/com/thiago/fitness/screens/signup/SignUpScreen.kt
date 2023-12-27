@@ -2,11 +2,9 @@ package com.thiago.fitness.screens.signup
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
-
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +24,7 @@ fun SignUpScreen(navController: NavHostController) {
         topBar = {
 
             DefaultTopBar(
-                title = "Novo Usuario",
+                title = "New User",
                 upAvailable = true,
                 navController = navController
             )
@@ -43,7 +41,7 @@ fun SignUpScreen(navController: NavHostController) {
 @Composable
 fun PreviewSignUpScreen() {
     AllFitnessTheme(darkTheme = true) {
-        // A surface container using the 'background' color from the theme
+
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background

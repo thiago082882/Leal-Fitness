@@ -1,6 +1,5 @@
 package com.thiago.fitness.screens.my_training.components
 
-import MyTrainingCard
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +13,7 @@ import com.thiago.fitness.domain.model.Training
 @Composable
 fun MyTrainingContent(
     navController: NavHostController,
-    posts: List<Training>
+    trainings: List<Training>
 ) {
     LazyColumn(
         modifier = Modifier
@@ -22,7 +21,7 @@ fun MyTrainingContent(
             .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 55.dp)
     ) {
         items(
-            items = posts
+            items = trainings
         ) { training ->
             MyTrainingCard(navController = navController, training = training)
         }

@@ -1,4 +1,5 @@
-package com.thiago.fitness.screens.new_training.components
+package com.thiago.fitness.screens.new_exercise.components
+
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -6,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -23,13 +25,13 @@ import coil.compose.AsyncImage
 import com.thiago.fitness.R
 import com.thiago.fitness.presentation.components.DefaultTextField
 import com.thiago.fitness.presentation.components.DialogCapturePicture
-import com.thiago.fitness.screens.new_training.NewTrainingViewModel
 import com.thiago.fitness.presentation.ui.theme.AllFitnessTheme
 import com.thiago.fitness.presentation.ui.theme.Blue200
+import com.thiago.fitness.screens.new_exercise.NewExerciseViewModel
 
 
 @Composable
-fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
+fun NewExerciseContent(viewModel: NewExerciseViewModel = hiltViewModel()) {
 
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
@@ -76,8 +78,7 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                             contentDescription = "Selected image",
                             contentScale = ContentScale.Crop
                         )
-                    }
-                    else {
+                    } else {
                         Image(
                             modifier = Modifier
                                 .height(120.dp)
@@ -85,10 +86,10 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                                     dialogState.value = true
                                 },
                             painter = painterResource(id = R.drawable.header),
-                            contentDescription = "Imagem do usuario"
+                            contentDescription = "User image"
                         )
                         Text(
-                            text = "SELECIONAR UMA IMAGEM",
+                            text = "SELECT AN IMAGE",
                             fontSize = 19.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -103,8 +104,8 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                     .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
-                label = "Nome do Jogo",
-                icon = Icons.Default.Face,
+                label = "Exercise Name",
+                icon = Icons.Default.FitnessCenter,
                 errorMsg = "",
                 validateField = {
 
@@ -114,9 +115,9 @@ fun NewTrainingContent(viewModel: NewTrainingViewModel = hiltViewModel()) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 0.dp, start = 20.dp, end = 20.dp),
-                value = state.description,
+                value = state.remarks,
                 onValueChange = { viewModel.onDescriptionInput(it) },
-                label = "Descrição",
+                label = "Observation",
                 icon = Icons.Default.List,
                 errorMsg = "",
                 validateField = {
@@ -137,7 +138,7 @@ fun DefaultNewPostContent() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            NewTrainingContent()
+            NewExerciseContent()
         }
     }
 }

@@ -1,4 +1,4 @@
-
+package com.thiago.fitness.screens.my_training.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -24,20 +25,24 @@ import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.presentation.navigation.DetailsScreen
 import com.thiago.fitness.screens.my_training.MyTrainingViewModel
 
-@Composable
-fun MyTrainingCard(navController: NavHostController, training: Training, viewModel: MyTrainingViewModel = hiltViewModel()) {
 
+@Composable
+fun MyTrainingCard(
+    navController: NavHostController,
+    training: Training,
+    viewModel: MyTrainingViewModel = hiltViewModel()
+) {
     Card(
         modifier = Modifier
             .padding(top = 0.dp, bottom = 15.dp)
             .clickable {
-               // navController.navigate(route = DetailsScreen.DetailTraining.passTraining(training.toJson()))
+                navController.navigate(route = DetailsScreen.ExerciseList.passExercise(training.toJson()))
             },
         elevation = 4.dp,
         shape = RoundedCornerShape(20.dp),
         contentColor = Color.White,
 
-    ) {
+        ) {
         Column() {
             AsyncImage(
                 modifier = Modifier
@@ -49,14 +54,15 @@ fun MyTrainingCard(navController: NavHostController, training: Training, viewMod
             )
             Text(
                 modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
-                text = training.name,
-                fontWeight = FontWeight.Bold
+                text = "Name Training: ${training.name}",
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             )
             Text(
                 modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp),
-                text = training.description,
-                fontSize = 13.sp,
-                maxLines = 2,
+                text = "Description: ${training.description}",
+                fontSize = 14.sp,
+                maxLines = 3,
                 color = Color.Gray
             )
             Row(
@@ -65,7 +71,11 @@ fun MyTrainingCard(navController: NavHostController, training: Training, viewMod
             ) {
                 IconButton(
                     onClick = {
-                        navController.navigate(route = DetailsScreen.UpdateTraining.passTraining(training.toJson()))
+                        navController.navigate(
+                            route = DetailsScreen.UpdateTraining.passTraining(
+                                training.toJson()
+                            )
+                        )
                     }
                 ) {
                     Icon(
@@ -87,5 +97,6 @@ fun MyTrainingCard(navController: NavHostController, training: Training, viewMod
 
         }
     }
-
 }
+
+

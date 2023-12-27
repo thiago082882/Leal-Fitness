@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,18 +55,16 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 Image(
                     modifier = Modifier.height(130.dp),
                     painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "logo"
+                    contentDescription = "soon"
                 )
                 Text(
-                    text = "LEAL FITNESS",
-
+                    text = "LOYAL FITNESS",
                     )
             }
 
         }
 
         Card(
-
 
             modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 200.dp),
             backgroundColor = DarkGray500,
@@ -93,7 +91,7 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Por favor inicie a sessão para continuar",
+                    text = "Please log in to continue",
                     fontSize = 12.sp,
 
                     )
@@ -107,37 +105,28 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                     errorMsg = viewModel.emailErrMsg,
                     validateField = {
                         viewModel.validateEmail()
-                    },
-
-                    )
+                    })
                 DefaultTextField(
                     modifier = Modifier.padding(top = 0.dp),
                     value = state.password,
                     onValueChange = { viewModel.onPasswordInput(it) },
-                    label = "Senha",
+                    label = "Password",
                     icon = Icons.Default.Lock,
                     hideText = true,
                     errorMsg = viewModel.passwordErrMsg,
                     validateField = {
                         viewModel.validatePassword()
-                    }
-                )
+                    })
                 DefaultButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 40.dp),
-                    text = "INICIAR SESSÃO",
+                    text = "START SESSION",
                     onClick = {
-
                         viewModel.login()
-
-
                     },
                     enabled = viewModel.isEnabledLoginButton
-
-                    )
-
-            }
+                ) }
         }
     }
 

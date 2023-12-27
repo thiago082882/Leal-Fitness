@@ -16,10 +16,10 @@ fun ProfileUpdate(viewModel: ProfileUpdateViewModel = hiltViewModel()) {
             ProgressBar()
         }
         is Response.Success -> {
-            Toast.makeText(LocalContext.current, "Dados atualizados corretamente", Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current, "Data updated correctly", Toast.LENGTH_LONG).show()
         }
         is Response.Failure -> {
-            Toast.makeText(LocalContext.current, updateResponse.exception?.message ?: "Error desconhecido" , Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current, updateResponse.exception?.message ?: "Unknown error" , Toast.LENGTH_LONG).show()
         }
 
         else -> {}

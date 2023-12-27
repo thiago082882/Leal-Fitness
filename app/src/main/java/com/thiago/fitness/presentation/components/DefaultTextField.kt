@@ -23,16 +23,16 @@ import com.thiago.fitness.presentation.ui.theme.Blue200
 @Composable
 fun DefaultTextField(
     modifier: Modifier,
-    value : String,
-    onValueChange : (value: String) -> Unit,
+    value: String,
+    onValueChange: (value: String) -> Unit,
     validateField: () -> Unit = {},
-    label : String,
-    icon : ImageVector,
+    label: String,
+    icon: ImageVector,
     keyboardType: KeyboardType = KeyboardType.Text,
-    hideText : Boolean = false,
-    errorMsg : String ="",
+    hideText: Boolean = false,
+    errorMsg: String = "",
 
-){
+    ) {
     Column() {
         OutlinedTextField(
             modifier = modifier,
@@ -42,8 +42,8 @@ fun DefaultTextField(
                 validateField()
 
 
-                            },
-            keyboardOptions =  KeyboardOptions(keyboardType=keyboardType),
+            },
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             label =
             {
                 Text(label)
@@ -56,13 +56,13 @@ fun DefaultTextField(
 
                 )
             },
-            visualTransformation = if(hideText) PasswordVisualTransformation()else VisualTransformation.None
+            visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None
         )
         Text(
-            modifier= Modifier.padding(top=2.dp),
+            modifier = Modifier.padding(top = 2.dp),
             text = errorMsg,
             fontSize = 11.sp,
-            color= Blue200
+            color = Blue200
 
 
         )

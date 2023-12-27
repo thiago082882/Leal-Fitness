@@ -7,12 +7,15 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.thiago.fitness.core.Constants.EXERCISE
 import com.thiago.fitness.core.Constants.TRAINING
 import com.thiago.fitness.core.Constants.USERS
 import com.thiago.fitness.data.repository.AuthRepositoryImpl
+import com.thiago.fitness.data.repository.ExerciseRepositoryImpl
 import com.thiago.fitness.data.repository.TrainingRepositoryImpl
 import com.thiago.fitness.data.repository.UsersRepositoryImpl
 import com.thiago.fitness.domain.repository.AuthRepository
+import com.thiago.fitness.domain.repository.ExerciseRepository
 import com.thiago.fitness.domain.repository.TrainingRepository
 import com.thiago.fitness.domain.repository.UsersRepository
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
@@ -20,6 +23,13 @@ import com.thiago.fitness.domain.use_cases.auth.GetCurrentUser
 import com.thiago.fitness.domain.use_cases.auth.Login
 import com.thiago.fitness.domain.use_cases.auth.Logout
 import com.thiago.fitness.domain.use_cases.auth.Signup
+import com.thiago.fitness.domain.use_cases.exercise.CreateExercise
+import com.thiago.fitness.domain.use_cases.exercise.DeleteExercise
+import com.thiago.fitness.domain.use_cases.exercise.ExerciseUseCases
+import com.thiago.fitness.domain.use_cases.exercise.GetExercise
+import com.thiago.fitness.domain.use_cases.exercise.GetExerciseByIdUser
+import com.thiago.fitness.domain.use_cases.exercise.GetExercisesByUserIdUseCase
+import com.thiago.fitness.domain.use_cases.exercise.UpdateExercise
 import com.thiago.fitness.domain.use_cases.training.CreateTraining
 import com.thiago.fitness.domain.use_cases.training.DeleteTraining
 import com.thiago.fitness.domain.use_cases.training.GetTraining
@@ -52,9 +62,23 @@ object AppModule {
     fun provideStorageUsersRef(storage: FirebaseStorage): StorageReference =
         storage.reference.child(USERS)
 
+
     @Provides
     @Named(USERS)
     fun provideUsersRef(db: FirebaseFirestore): CollectionReference = db.collection(USERS)
+
+    @Provides
+    @Named(EXERCISE)
+    fun provideExerciseRef(db: FirebaseFirestore): CollectionReference {
+        return db.collection(EXERCISE)
+    }
+
+    @Provides
+    @Named(EXERCISE)
+    fun provideStorageExerciseRef(storage: FirebaseStorage): StorageReference =
+        storage.reference.child(
+            EXERCISE
+        )
 
     @Provides
     @Named(TRAINING)
@@ -80,6 +104,9 @@ object AppModule {
     fun provideTrainingRepository(impl: TrainingRepositoryImpl): TrainingRepository = impl
 
     @Provides
+    fun provideExerciseRepository(impl: ExerciseRepositoryImpl): ExerciseRepository = impl
+
+    @Provides
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
         getCurrentUser = GetCurrentUser(repository),
         login = Login(repository),
@@ -103,6 +130,18 @@ object AppModule {
         deleteTraining = DeleteTraining(repository),
         updateTraining = UpdateTraining(repository),
 
-    )
+        )
 
+    @Provides
+    fun provideExerciseUseCases(repository: ExerciseRepository) = ExerciseUseCases(
+
+        createExercise = CreateExercise(repository),
+        updateExercise = UpdateExercise(repository),
+        getExercise = GetExercise(repository),
+        deleteExercise = DeleteExercise(repository),
+        getExerciseByIdUser = GetExerciseByIdUser(repository),
+        getExercisesByTrainingUseCases = GetExercisesByUserIdUseCase(repository),
+
+
+        )
 }

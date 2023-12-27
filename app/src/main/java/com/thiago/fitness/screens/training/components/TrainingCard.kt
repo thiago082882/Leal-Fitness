@@ -16,67 +16,72 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.google.firebase.Timestamp
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.presentation.navigation.DetailsScreen
 import com.thiago.fitness.presentation.utils.formatTimestamp
 import com.thiago.fitness.screens.training.TrainingViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+
 
 @Composable
-fun TrainingCard(navController: NavHostController, training: Training, viewModel: TrainingViewModel = hiltViewModel()) {
-
-
-
-    Card(
-        modifier = Modifier
-            .padding(top = 0.dp, bottom = 15.dp)
-            .clickable {
-              navController.navigate(route = DetailsScreen.DetailTraining.passTraining(training.toJson()))
-            },
-        elevation = 4.dp,
-        shape = RoundedCornerShape(20.dp),
-        contentColor = Color.White,
-
-    ) {
-        Column() {
-            AsyncImage(
+    fun TrainingCard(navController: NavHostController, training: Training, viewModel: TrainingViewModel = hiltViewModel()) {
+        Card(
+            modifier = Modifier
+                .padding(top = 5.dp, bottom = 10.dp, start = 12.dp, end = 12.dp)
+                .clickable {
+                    navController.navigate(
+                        route = DetailsScreen.DetailTraining.passTraining(
+                            training.toJson()
+                        )
+                    )
+                },
+            elevation = 4.dp,
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp),
-                model = training.image,
-                contentDescription = "",
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 10.dp),
-                text = training.name,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 15.dp, vertical = 3.dp),
-                text = training.user?.username ?: "",
-                fontSize = 12.sp
-            )
-            Text(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 10.dp),
-                text = training.description,
-                fontSize = 13.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
-
-            Text(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 3.dp, bottom = 10.dp),
-                text = formatTimestamp(training.data),
-                fontSize = 13.sp,
-                maxLines = 2,
-                color = Color.Gray
-            )
-
-        }
+                    .padding(8.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                ) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp),
+                        model = training.image,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Column(modifier = Modifier.padding(2.dp)) {
+                    Text(
+                        text = training.name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        text = "Username: ${training.user?.username ?: ""}",
+                        fontSize = 14.sp,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                    Text(
+                        text = "Description: ${training.description}",
+                        fontSize = 14.sp,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                    Text(
+                        text = "Date: ${formatTimestamp(training.data)}",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                }
+            }
         }
 
 }

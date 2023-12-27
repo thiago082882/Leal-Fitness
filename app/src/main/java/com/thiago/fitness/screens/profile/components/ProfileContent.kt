@@ -37,17 +37,14 @@ import com.thiago.fitness.presentation.components.DefaultButton
 import com.thiago.fitness.presentation.navigation.DetailsScreen
 import com.thiago.fitness.screens.profile.ProfileViewModel
 
-
 @Composable
-fun ProfileContent(navController : NavController,viewModel: ProfileViewModel= hiltViewModel()) {
+fun ProfileContent(navController: NavController, viewModel: ProfileViewModel = hiltViewModel()) {
 
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-
-
-        ) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box() {
             Image(
                 modifier = Modifier
@@ -64,7 +61,7 @@ fun ProfileContent(navController : NavController,viewModel: ProfileViewModel= hi
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(
-                    text = "Bem-Vindo",
+                    text = "Welcome",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -78,8 +75,7 @@ fun ProfileContent(navController : NavController,viewModel: ProfileViewModel= hi
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
-                }
-                else {
+                } else {
                     Image(
                         modifier = Modifier.size(115.dp),
                         painter = painterResource(id = R.drawable.user),
@@ -105,19 +101,19 @@ fun ProfileContent(navController : NavController,viewModel: ProfileViewModel= hi
         Spacer(modifier = Modifier.height(20.dp))
         DefaultButton(
             modifier = Modifier.width(250.dp),
-            text = "Editar dados",
+            text = "edit data",
             color = Color.DarkGray,
             icon = Icons.Default.Edit,
             onClick = {
                 navController.navigate(
                     route = DetailsScreen.ProfileUpdate.passUser(viewModel.userData.toJson())
-                 )
+                )
             }
         )
         Spacer(modifier = Modifier.height(10.dp))
         DefaultButton(
             modifier = Modifier.width(250.dp),
-            text = "Encerrar Sessão",
+            text = "Logout",
             onClick = {
                 viewModel.logout()
                 activity?.finish()

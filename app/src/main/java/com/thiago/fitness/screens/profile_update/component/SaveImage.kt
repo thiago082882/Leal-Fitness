@@ -23,7 +23,7 @@ fun SaveImage(viewModel: ProfileUpdateViewModel = hiltViewModel()) {
         is Response.Failure -> {
             Toast.makeText(
                 LocalContext.current,
-                response.exception?.message ?: "Error desconhecido",
+                response.exception?.message ?: "Unknown error",
                 Toast.LENGTH_LONG
             ).show()
         }

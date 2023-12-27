@@ -7,8 +7,8 @@ import com.thiago.fitness.domain.model.User
 interface AuthRepository {
 
     val currentUser: FirebaseUser?
-    suspend fun login(email: String, senha: String): Response<FirebaseUser>
-    suspend fun sigUp(user : User): Response<FirebaseUser>
-    fun logout ()
+    suspend fun login(email: String, password: String): Response<FirebaseUser>
+    suspend fun signUp(user: User): Response<FirebaseUser>
+    fun logout()
 
 }

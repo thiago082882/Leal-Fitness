@@ -5,6 +5,7 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 data class User(
+
     var id: String = "",
     var username: String = "",
     var email: String = "",

@@ -6,5 +6,5 @@ import java.io.File
 import javax.inject.Inject
 
 class UpdateTraining @Inject constructor(private val repository: TrainingRepository) {
-   suspend operator fun  invoke(training: Training, file: File?) = repository.update(training,file)
+    suspend operator fun invoke(training: Training, file: File?) = repository.update(training, file)
 }

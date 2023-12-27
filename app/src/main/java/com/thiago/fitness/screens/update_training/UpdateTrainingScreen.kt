@@ -19,7 +19,7 @@ fun UpdateTrainingScreen(navController: NavHostController, training: String, vie
     Scaffold(
         topBar = {
              DefaultTopBar(
-                 title = "Editar Treino",
+                 title = "Edit Training",
                  upAvailable = true,
                  navController = navController
              )
@@ -30,8 +30,8 @@ fun UpdateTrainingScreen(navController: NavHostController, training: String, vie
         bottomBar = {
             DefaultButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "ATUALIZAR",
-                onClick = { viewModel.onUpdatePost() }
+                text = "UPDATE",
+                onClick = { viewModel.onUpdateTraining() }
             )
         }
     )

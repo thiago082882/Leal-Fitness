@@ -9,6 +9,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.thiago.fitness.presentation.components.DefaultButton
 import com.thiago.fitness.presentation.components.DefaultTopBar
+import com.thiago.fitness.screens.new_exercise.components.NewExercise
+import com.thiago.fitness.screens.new_exercise.components.NewExerciseContent
 import com.thiago.fitness.screens.new_training.components.NewTraining
 import com.thiago.fitness.screens.new_training.components.NewTrainingContent
 
@@ -20,7 +22,7 @@ fun NewTrainingScreen(navController: NavHostController, viewModel: NewTrainingVi
     Scaffold(
         topBar = {
             DefaultTopBar(
-                title = "Novo Post",
+                title = "New Training",
                 upAvailable = true,
                 navController = navController
             )
@@ -31,7 +33,7 @@ fun NewTrainingScreen(navController: NavHostController, viewModel: NewTrainingVi
         bottomBar = {
             DefaultButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = "PUBLICAR",
+                text = "PUBLISH",
                 onClick = { viewModel.onNewTraining() }
             )
         }
