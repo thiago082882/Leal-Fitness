@@ -1,5 +1,5 @@
 package com.thiago.fitness.data.repository
-
+//
 import android.net.Uri
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
