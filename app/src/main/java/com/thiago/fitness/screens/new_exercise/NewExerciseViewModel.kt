@@ -6,8 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
+import com.thiago.fitness.core.Constants
 import com.thiago.fitness.domain.model.Exercise
 import com.thiago.fitness.domain.model.Response
+import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
 import com.thiago.fitness.domain.use_cases.exercise.ExerciseUseCases
 import com.thiago.fitness.presentation.utils.ComposeFileProvider
@@ -37,6 +40,9 @@ class NewExerciseViewModel @Inject constructor(
 
     val currentUser = authUseCases.getCurrentUser()
 
+    val training = Training()
+    val docRef = FirebaseFirestore.getInstance().collection(Constants.TRAINING).document()
+
 
     fun createExercise(exercise: Exercise, file: File, trainingId: String) = viewModelScope.launch {
         createPostResponse = Response.Loading
@@ -48,9 +54,9 @@ class NewExerciseViewModel @Inject constructor(
         val exercise = Exercise(
             name = state.name,
             remarks = state.remarks,
-            trainingId = currentUser?.uid ?: ""
+            trainingId =  docRef.id
         )
-        createExercise(exercise, file!!, currentUser?.uid ?: "")
+        createExercise(exercise, file!!, docRef.id)
     }
 
 

@@ -8,6 +8,7 @@ data class NewExerciseState(
  val name: String = "",
  val remarks: String = "",
  var image: String = "",
+ val trainingId : String = ""
 
 
 

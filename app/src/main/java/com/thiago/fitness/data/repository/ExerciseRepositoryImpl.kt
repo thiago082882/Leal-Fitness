@@ -25,6 +25,7 @@ import javax.inject.Named
 class ExerciseRepositoryImpl @Inject constructor(
     @Named(EXERCISE) private val exerciseRef: CollectionReference,
     @Named(EXERCISE) private val storageExerciseRef: StorageReference,
+    @Named(TRAINING) private val trainingRef: CollectionReference,
     private val db: FirebaseFirestore
 ) : ExerciseRepository {
     @OptIn(DelicateCoroutinesApi::class)
@@ -91,12 +92,24 @@ class ExerciseRepositoryImpl @Inject constructor(
             val url = ref.downloadUrl.await()
 
             exercise.image = url.toString()
-            db.collection(TRAINING).document(trainingId).collection(EXERCISE).add(exercise).await()
+
+            val exercisesRef = trainingRef.document(trainingId).collection("exercises")
+            val docRef = exercisesRef.document() // Criando um novo documento na coleção de exercícios
+
+            // Definindo o ID do exercício com base no ID do documento gerado
+            exercise.id = docRef.id
+
+            // Setando os dados do exercício no Firestore
+            docRef.set(exercise).await()
+
             Response.Success(true)
         } catch (e: Exception) {
+            e.printStackTrace()
             Response.Failure(e)
         }
     }
+
+
 
     override suspend fun update(exercise: Exercise, file: File?): Response<Boolean> {
         return try {

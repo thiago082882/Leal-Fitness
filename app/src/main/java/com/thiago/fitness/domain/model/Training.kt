@@ -16,6 +16,7 @@ data class Training(
     var image: String = "",
     var idUser: String = "",
     var user: User? = null,
+    val exercise: Exercise? = null
 
     ) {
     fun toJson(): String = Gson().toJson(
@@ -36,6 +37,7 @@ data class Training(
                     URLEncoder.encode(user?.image, StandardCharsets.UTF_8.toString())
                 else "",
             ),
+            exercise
 
             )
     )

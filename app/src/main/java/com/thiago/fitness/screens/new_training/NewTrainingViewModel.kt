@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
+import com.thiago.fitness.core.Constants.TRAINING
 import com.thiago.fitness.domain.model.Response
 import com.thiago.fitness.domain.model.Training
 import com.thiago.fitness.domain.use_cases.auth.AuthUseCases
@@ -42,9 +44,12 @@ class NewTrainingViewModel @Inject constructor(
 
     fun createTraining(training: Training) = viewModelScope.launch {
         createPostResponse = Response.Loading
+        val docRef = FirebaseFirestore.getInstance().collection(TRAINING).document()
+        training.id = docRef.id
         val result = trainingUseCase.createTraining(training, file!!)
         createPostResponse = result
     }
+
 
     fun onNewTraining() {
         val training = Training(
